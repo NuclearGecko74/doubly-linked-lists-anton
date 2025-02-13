@@ -17,7 +17,8 @@ namespace DoublyLinkedListsAnton
             list.Append(6);
             list.Append(7);
 
-            list.Insert(0, 5);
+            list.Insert(2, 5);
+            list.Delete(2);
 
             list.PrintList();
         }

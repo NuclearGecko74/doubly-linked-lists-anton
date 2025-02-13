@@ -80,11 +80,6 @@ namespace DoublyLinkedListsAnton
             }
 
             Node current = Get(index);
-            if (current == null)
-            {
-                return false;
-            }
-
             Node newNode = new Node(data, current.prev, current);
             current.prev.next = newNode;
             current.prev = newNode;
@@ -132,6 +127,28 @@ namespace DoublyLinkedListsAnton
             CheckForCircularity();
             length--;
             return temp;
+        }
+
+        public bool Delete(int index)
+        {
+            if (index < 0 || index >= length) return false;
+            if (index == 0)
+            {
+                DeleteFirst();
+                return true;
+            }
+
+            if (index == length - 1)
+            {
+                DeleteLast();
+                return true;
+            }
+
+            Node temp = Get(index);
+            temp.prev.next = temp.next;
+            temp.next.prev = temp.prev;
+            length--;
+            return true;
         }
 
         public Node Get(int index)
