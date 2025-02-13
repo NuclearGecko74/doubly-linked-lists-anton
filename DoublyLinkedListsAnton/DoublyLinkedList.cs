@@ -12,6 +12,7 @@ namespace DoublyLinkedListsAnton
         private Node head;
         private Node tail;
 
+        private int length;
         private bool bIsCircular;
 
         public DoublyLinkedList(bool bIsCircular)
@@ -19,6 +20,7 @@ namespace DoublyLinkedListsAnton
             this.bIsCircular = bIsCircular;
             head = null;
             tail = null;
+            length = 0;
         }
 
         public bool IsEmpty() { return  head == null; }
@@ -28,6 +30,8 @@ namespace DoublyLinkedListsAnton
             if (IsEmpty())
             {
                 tail = head = new Node(data);
+                if (bIsCircular) { tail.next = head; }
+                length++;
                 return;
             }
 
@@ -40,6 +44,8 @@ namespace DoublyLinkedListsAnton
             //tail = current.next;
 
             tail = tail.next = new Node(data, tail);
+            if (bIsCircular) { tail.next = head; }
+            length++;
         }
 
         public void Prepend(object data)
@@ -47,9 +53,42 @@ namespace DoublyLinkedListsAnton
             if (IsEmpty())
             {
                 tail = head = new Node(data);
+                if (bIsCircular) { tail.next = head; }
+                length++;
                 return;
             }
             head = head.prev = new Node(data, null, head);
+            if (bIsCircular) { tail.next = head; }
+            length++;
+        }
+
+        public Node DeleteLast()
+        {
+            if (!IsEmpty())
+            {
+                Node temp = tail;
+                tail = tail.prev;
+                tail.next = null;
+                if (bIsCircular) { tail.next = head; }
+                length--;
+                return temp;
+            }
+            return null;
+        }
+
+        public Node DeleteFirst()
+        {
+            if (!IsEmpty())
+            {
+                Node temp = head;
+                head = head.next;
+                head.prev.next = null;
+                head.prev = null;
+                if (bIsCircular) { tail.next = head; }
+                length--;
+                return temp;
+            }
+            return null;
         }
 
         public void PrintList()
@@ -57,12 +96,20 @@ namespace DoublyLinkedListsAnton
             if (!IsEmpty())
             {
                 Node current = head;
-                while (current != null)
+                //while (current != null)
+                //{
+                //    Console.WriteLine(current.data);
+                //    current = current.next;
+                //}
+
+                for (int i = 0; i < length; i++)
                 {
                     Console.WriteLine(current.data);
                     current = current.next;
                 }
             }
         }
+
+        public int GetLength() { return length; }
     }
 }
