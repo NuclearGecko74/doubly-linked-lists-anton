@@ -10,7 +10,12 @@ namespace DoublyLinkedListsAnton
     {
         static void Main(string[] args)
         {
-            Node node = new Node(5);
+            DoublyLinkedList list = new DoublyLinkedList(false);
+            list.Append(5);
+            list.Append(3);
+            list.Prepend(69);
+
+            list.PrintList();
         }
     }
 }
