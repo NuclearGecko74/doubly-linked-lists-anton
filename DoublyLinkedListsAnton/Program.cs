@@ -14,9 +14,12 @@ namespace DoublyLinkedListsAnton
             DoublyLinkedList list = new DoublyLinkedList(false);
             list.Append(3);
             list.Append(4);
-            list.Append(5);
+            list.Append(6);
+            list.Append(7);
 
-            Console.WriteLine(list.Get(6).data);
+            list.Insert(0, 5);
+
+            list.PrintList();
         }
 
     }

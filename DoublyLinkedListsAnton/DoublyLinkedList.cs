@@ -66,6 +66,7 @@ namespace DoublyLinkedListsAnton
 
         public bool Insert(int index, object data)
         {
+            if (index < 0 || index > length) return false;
             if (index == 0)
             {
                 Prepend(data);
@@ -78,25 +79,16 @@ namespace DoublyLinkedListsAnton
                 return true;
             }
 
-            if (index < 0 || index > length) return false;
+            Node current = Get(index);
+            if (current == null)
+            {
+                return false;
+            }
 
-            Node current;
-            if (index <= (length - index))
-            {
-                current = head;
-                for (int i = 0; i < index + 1; i++)
-                {
-                    current = current.next;
-                }
-            }
-            else
-            {
-                current = tail;
-                for (int i = 0; i < (length - index + 1); i++)
-                {
-                    current = current.prev;
-                }
-            }
+            Node newNode = new Node(data, current.prev, current);
+            current.prev.next = newNode;
+            current.prev = newNode;
+
             length++;
             return true;
         }
@@ -146,10 +138,22 @@ namespace DoublyLinkedListsAnton
         {
             if (index < 0 || index >= length) return null;
 
-            Node current = head;
-            for(int i = 0; i < index; i++)
+            Node current;
+            if (index <= (length - index - 1))
             {
-                current = current.next;
+                current = head;
+                for (int i = 0; i < index; i++)
+                {
+                    current = current.next;
+                }
+            }
+            else
+            {
+                current = tail;
+                for (int i = 0; i < (length - index - 1); i++)
+                {
+                    current = current.prev;
+                }
             }
             return current;
         }
