@@ -30,9 +30,10 @@ namespace DoublyLinkedListsAnton
             if (IsEmpty())
             {
                 tail = head = new Node(data);
-                if (bIsCircular) { tail.next = head; }
-                length++;
-                return;
+            }
+            else
+            {
+                tail = tail.next = new Node(data, tail);
             }
 
             //Node current = head;
@@ -43,8 +44,8 @@ namespace DoublyLinkedListsAnton
             //current.next = new Node(data, current);
             //tail = current.next;
 
-            tail = tail.next = new Node(data, tail);
-            if (bIsCircular) { tail.next = head; }
+            
+            CheckForCircularity();
             length++;
         }
 
@@ -53,42 +54,55 @@ namespace DoublyLinkedListsAnton
             if (IsEmpty())
             {
                 tail = head = new Node(data);
-                if (bIsCircular) { tail.next = head; }
-                length++;
-                return;
             }
-            head = head.prev = new Node(data, null, head);
-            if (bIsCircular) { tail.next = head; }
+            else
+            {
+                head = head.prev = new Node(data, null, head);
+            }
+            
+            CheckForCircularity();
             length++;
         }
 
         public Node DeleteLast()
         {
-            if (!IsEmpty())
+            if (IsEmpty()) return null;
+
+            Node temp = tail;
+
+            if (head == tail)
             {
-                Node temp = tail;
+                head = tail = null;
+            }
+            else
+            {
                 tail = tail.prev;
                 tail.next = null;
-                if (bIsCircular) { tail.next = head; }
-                length--;
-                return temp;
             }
-            return null;
+
+            CheckForCircularity();
+            length--;
+            return temp;
         }
 
         public Node DeleteFirst()
         {
-            if (!IsEmpty())
+            if (IsEmpty()) return null;
+
+            Node temp = head;
+            if (head == tail)
             {
-                Node temp = head;
-                head = head.next;
-                head.prev.next = null;
-                head.prev = null;
-                if (bIsCircular) { tail.next = head; }
-                length--;
-                return temp;
+                head = tail = null;
             }
-            return null;
+            else
+            {
+                head = head.next;
+                head.prev = null;
+            }
+
+            CheckForCircularity();
+            length--;
+            return temp;
         }
 
         public void PrintList()
@@ -110,6 +124,26 @@ namespace DoublyLinkedListsAnton
             }
         }
 
+        public void PrintListBackwards()
+        {
+            Node current = tail;
+
+            for (int i = 0; i < length; i++)
+            {
+                Console.WriteLine(current.data);
+                current = current.prev;
+            }
+        }
+
         public int GetLength() { return length; }
+
+        private void CheckForCircularity()
+        {
+            if (bIsCircular && !IsEmpty()) 
+            { 
+                tail.next = head; 
+                head.prev = tail; 
+            }
+        }
     }
 }

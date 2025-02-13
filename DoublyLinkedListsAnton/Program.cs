@@ -17,7 +17,7 @@ namespace DoublyLinkedListsAnton
 
             list.DeleteFirst();
 
-            list.PrintList();
+            list.PrintListBackwards();
         }
     }
 }
