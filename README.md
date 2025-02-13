@@ -1,4 +1,4 @@
-# DoublyLinkedListsAnton
+# List Doblemente Enlazada en C#
 
 Este proyecto implementa una **Lista Doblemente Enlazada** en C#, con la posibilidad de operar en modo **circular** o **no circular**. Incluye operaciones para:
 
