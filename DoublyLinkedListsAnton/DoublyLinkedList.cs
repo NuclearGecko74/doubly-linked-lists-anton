@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace DoublyLinkedListsAnton
 {
-    internal class Program
+    internal class DoublyLinkedList
     {
-        static void Main(string[] args)
-        {
-            Node node = new Node(5);
-        }
+        private Node head;
+        private Node tail;
     }
 }
