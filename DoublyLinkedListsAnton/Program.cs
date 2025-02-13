@@ -8,16 +8,16 @@ namespace DoublyLinkedListsAnton
 {
     internal class Program
     {
+        // El menú fue hecho todo por chepete, ngl, las clases no, las hice desde cero
         static void Main(string[] args)
         {
-            DoublyLinkedList list = new DoublyLinkedList(true);
-            list.Append(5);
+            DoublyLinkedList list = new DoublyLinkedList(false);
             list.Append(3);
-            list.Prepend(69);
+            list.Append(4);
+            list.Append(5);
 
-            list.DeleteFirst();
-
-            list.PrintListBackwards();
+            Console.WriteLine(list.Get(6).data);
         }
+
     }
 }

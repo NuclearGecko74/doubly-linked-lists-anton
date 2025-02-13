@@ -64,6 +64,43 @@ namespace DoublyLinkedListsAnton
             length++;
         }
 
+        public bool Insert(int index, object data)
+        {
+            if (index == 0)
+            {
+                Prepend(data);
+                return true;
+            }
+
+            if (index == length)
+            {
+                Append(data);
+                return true;
+            }
+
+            if (index < 0 || index > length) return false;
+
+            Node current;
+            if (index <= (length - index))
+            {
+                current = head;
+                for (int i = 0; i < index + 1; i++)
+                {
+                    current = current.next;
+                }
+            }
+            else
+            {
+                current = tail;
+                for (int i = 0; i < (length - index + 1); i++)
+                {
+                    current = current.prev;
+                }
+            }
+            length++;
+            return true;
+        }
+
         public Node DeleteLast()
         {
             if (IsEmpty()) return null;
@@ -105,6 +142,29 @@ namespace DoublyLinkedListsAnton
             return temp;
         }
 
+        public Node Get(int index)
+        {
+            if (index < 0 || index >= length) return null;
+
+            Node current = head;
+            for(int i = 0; i < index; i++)
+            {
+                current = current.next;
+            }
+            return current;
+        }
+
+        public bool Set(int index, object data)
+        {
+            Node temp = Get(index);
+            if (temp != null)
+            {
+                temp.data = data;
+                return true;
+            }
+            return false;
+        }
+
         public void PrintList()
         {
             if (!IsEmpty())
@@ -126,6 +186,8 @@ namespace DoublyLinkedListsAnton
 
         public void PrintListBackwards()
         {
+            if (IsEmpty()) return;
+
             Node current = tail;
 
             for (int i = 0; i < length; i++)
